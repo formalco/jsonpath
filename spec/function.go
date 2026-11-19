@@ -5,6 +5,7 @@ package spec
 import (
 	"encoding/json"
 	"fmt"
+	"slices"
 	"strings"
 )
 
@@ -374,6 +375,14 @@ type SingularQueryExpr struct {
 // single value at the path defined by selectors.
 func SingularQuery(root bool, selectors ...Selector) *SingularQueryExpr {
 	return &SingularQueryExpr{relative: !root, selectors: selectors}
+}
+
+// IsRelative reports whether the query starts at the current node (@).
+func (sq *SingularQueryExpr) IsRelative() bool { return sq.relative }
+
+// Selectors returns a copy of the query's selectors in traversal order.
+func (sq *SingularQueryExpr) Selectors() []Selector {
+	return slices.Clone(sq.selectors)
 }
 
 // evaluate returns a [ValueType] containing the return value of executing sq.

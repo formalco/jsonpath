@@ -58,6 +58,15 @@ func Comparison(left CompVal, op CompOp, right CompVal) *CompExpr {
 	return &CompExpr{left, op, right}
 }
 
+// Left returns the left operand of the comparison.
+func (ce *CompExpr) Left() CompVal { return ce.left }
+
+// Op returns the comparison operator.
+func (ce *CompExpr) Op() CompOp { return ce.op }
+
+// Right returns the right operand of the comparison.
+func (ce *CompExpr) Right() CompVal { return ce.right }
+
 // writeTo writes a string representation of ce to buf. Defined by
 // [stringWriter].
 func (ce *CompExpr) writeTo(buf *strings.Builder) {
